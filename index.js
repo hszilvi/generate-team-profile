@@ -11,50 +11,15 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./src/page-template.js");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
+const allEmployees = []
 // asking for employee data
 function promptBasicEmployee() {
     const questions = [
         {
-            type: 'input',
-            name: 'name',
-            message: 'Please give the name of the Employee: ',
-            validate: nameUserInput => {
-                if (nameUserInput) {
-                    return true;
-                } else{
-                    console.log('You have to type a name!')
-                }
-            }
-        },
-        // {
-        //     type: 'input',
-        //     name: 'id',
-        //     message: 'Please give the id of the employee: ',
-        //     validate: idUserInput => {
-        //         if (idUserInput) {
-        //             return true;
-        //         } else {
-        //             console.log('I need the id of the employee!')
-        //         }
-        //     }
-        // },
-        // {
-        //     type: 'input',
-        //     name: 'email',
-        //     message: 'Please give the email address of the employee: ',
-        //     validate: emailUserInput => {
-        //         if (emailUserInput) {
-        //             return true;
-        //         } else {
-        //             console.log('You need to add the email address of the employee!')
-        //         }
-        //     }
-        // },
-        {
             name: 'options',
             type: 'list',
             message: "Choose employee's positon: ",
-            choices: ['Manager', 'Engineer', 'Intern'],
+            choices: ['Manager', 'Engineer', 'Intern', 'Finish building the team'],
             validate: (options) => {
                 if (options.length) {
                     return true;                  
@@ -69,8 +34,11 @@ function promptBasicEmployee() {
             promptManager();
         } else if (answers.options === "Engineer") {
             promptEngineer();
-        } else {
+        } else if (answers.options === "Intern") {
             promptIntern();
+        } else {
+            console.log('team is ready');
+            writeToFile();
         }
     })
 }
@@ -78,12 +46,49 @@ function promptBasicEmployee() {
 function promptManager() {
     const managerQuestions = [
         {
+            type: 'input',
+            name: 'name',
+            message: 'Please give the name of the manager: ',
+            validate: nameUserInput => {
+                if (nameUserInput) {
+                    return true;
+                } else{
+                    console.log('You have to type a name!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Please give the id of the employee: ',
+            validate: idUserInput => {
+                if (idUserInput) {
+                    return true;
+                } else {
+                    console.log('I need the id of the employee!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please give the email address of the employee: ',
+            validate: emailUserInput => {
+                const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (emailUserInput.match(validRegex)) {
+                        return true;
+                } else {
+                    console.log('You need to add the email address of the employee!');
+                }
+            }
+        },
+        {
             name: 'officeNumber',
             type: 'input',
             message: 'Give manager office number: ',
             validate: contactNumber => {
-                if (contactNumber.length <=10 && contactNumber.length >= 6) {
-
+                const validRegex = /^[0-9]*$/;
+                if (contactNumber.length <=10 && contactNumber.length >= 6 && contactNumber.match(validRegex)) {
                     return true;
                 } else {
                     console.log('Add a contactnumber, number length has to be between 6-10!')
@@ -92,13 +97,58 @@ function promptManager() {
         }
     ]
     inquirer.prompt(managerQuestions).then((answers) => {
-    //     const manager = new Mangager(answers.)
+        const manager = new Manager (
+            this.name = answers.name,
+            this.id = answers.id,
+            this.email = answers.email,
+            this.officeNumber =  answers.officeNumber
+    )
+    allEmployees.push(manager);
+    console.log(allEmployees);
+    reRenderQuestions()
     })
 
 
 };
 function promptEngineer() {
     const engineerQuestion = [
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Please give the name of the engineer: ',
+            validate: nameUserInput => {
+                if (nameUserInput) {
+                    return true;
+                } else{
+                    console.log('You have to type a name!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Please give the id of the employee: ',
+            validate: idUserInput => {
+                if (idUserInput) {
+                    return true;
+                } else {
+                    console.log('I need the id of the employee!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please give the email address of the employee: ',
+            validate: emailUserInput => {
+                const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (emailUserInput.match(validRegex)) {
+                        return true;
+                } else {
+                    console.log('You need to add the email address of the employee!');
+                }
+            }
+        },
         {
             name: 'github',
             type: 'input',
@@ -114,11 +164,56 @@ function promptEngineer() {
         }
     ];
     inquirer.prompt(engineerQuestion).then((answers) => {
-        console.log('engineer ' + answers.github);
+        const engineer = new Engineer (
+            this.name = answers.name,
+            this.id = answers.id,
+            this.email = answers.email,
+            this.github = answers.github
+        )
+        allEmployees.push(engineer);
+        console.log(allEmployees);
+        reRenderQuestions();
     })
 };
 function promptIntern() {
     const internQuestions = [
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Please give the name of the intern: ',
+            validate: nameUserInput => {
+                if (nameUserInput) {
+                    return true;
+                } else{
+                    console.log('You have to type a name!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Please give the id of the employee: ',
+            validate: idUserInput => {
+                if (idUserInput) {
+                    return true;
+                } else {
+                    console.log('I need the id of the employee!')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please give the email address of the employee: ',
+            validate: emailUserInput => {
+                const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (emailUserInput.match(validRegex)) {
+                        return true;
+                } else {
+                    console.log('You need to add the email address of the employee!');
+                }
+            }
+        },
         {
             name: 'school',
             type: 'input',
@@ -133,39 +228,33 @@ function promptIntern() {
         }
     ];
     inquirer.prompt(internQuestions).then((answers) => {
-        console.log('it is an intern')
+        const intern = new Intern (
+            this.name = answers.name,
+            this.id = answers.id,
+            this.email = answers.email,
+            this.school = answers.school
+        )
+        allEmployees.push(intern);
+        // console.log(allEmployees);
+        console.log(intern)
+        reRenderQuestions();
     })
 }
 
 promptBasicEmployee();
-function generateManager() {
-    console.log('its a manager');
+
+// need a function to renerate the questions till the answe is Finish building the team
+function reRenderQuestions() {
+    promptBasicEmployee()
 }
 
-    // function multipleChoice() {
-    //     const questions = [
-    //       {
-    //         name: "options",
-    //         type: "list",
-    //         message: "Which option?",
-    //         choices: ["Option 1", "Option 2", "Option 3"],
-    //       },
-    //     ];
-    //     inquirer.prompt(questions).then((answers) => {
-    //       if (answers.options === "Option 1") {
-    //         one();
-    //       } else if ((answers.options = "Option 2")) {
-    //         two();
-    //       } else if ((answers.options = "Option 3")) {
-    //         three();
-    //       }
-    //     });
-    //   }
-    //   function one() {}
-      
-    //   function two() {}
-      
-    //   function three() {}
-      
-    //   multipleChoice();
 
+function writeToFile() {
+    fs.writeFile(outputPath, render(allEmployees), (err) => {
+        if (err) {
+            console.log('error in writing file');
+        } else {
+            console.log('success');
+        }
+    });
+}
