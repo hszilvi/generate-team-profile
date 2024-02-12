@@ -62,11 +62,13 @@ function promptManager() {
             name: 'id',
             message: 'Please give the id of the employee: ',
             validate: idUserInput => {
-                if (idUserInput) {
+                const validRegex = /^[0-9]*$/;
+                if (idUserInput.match(validRegex)) {
                     return true;
                 } else {
-                    console.log('I need the id of the employee!')
+                    console.log('Id should be a number')
                 }
+
             }
         },
         {
@@ -99,9 +101,9 @@ function promptManager() {
     inquirer.prompt(managerQuestions).then((answers) => {
         const manager = new Manager (
             this.name = answers.name,
-            this.id = answers.id,
+            this.id = parseInt(answers.id),
             this.email = answers.email,
-            this.officeNumber =  answers.officeNumber
+            this.officeNumber =  parseInt(answers.officeNumber)
     )
     allEmployees.push(manager);
     console.log(allEmployees);
@@ -166,7 +168,7 @@ function promptEngineer() {
     inquirer.prompt(engineerQuestion).then((answers) => {
         const engineer = new Engineer (
             this.name = answers.name,
-            this.id = answers.id,
+            this.id = parseInt(answers.id),
             this.email = answers.email,
             this.github = answers.github
         )
@@ -230,7 +232,7 @@ function promptIntern() {
     inquirer.prompt(internQuestions).then((answers) => {
         const intern = new Intern (
             this.name = answers.name,
-            this.id = answers.id,
+            this.id = parseInt(answers.id),
             this.email = answers.email,
             this.school = answers.school
         )
@@ -250,11 +252,14 @@ function reRenderQuestions() {
 
 
 function writeToFile() {
-    fs.writeFile(outputPath, render(allEmployees), (err) => {
-        if (err) {
-            console.log('error in writing file');
-        } else {
-            console.log('success');
-        }
-    });
+    fs.writeFileSync(outputPath, render(allEmployees), "utf-8")
+
+    
 }
+// fs.writeFileSync(outputPath, render(allEmployees), (err) => {
+//     if (err) {
+//         console.log('error in writing file');
+//     } else {
+//         console.log('success');
+//     }
+// });
