@@ -37,7 +37,7 @@ The task is to take the given starter code and convert it into a working Node.js
     * When a user selects the intern option then a user is prompted to enter the required data then the user is taken back to the menu.
     * When a user decides to finish building their team then they exit the application, and the HTML is generated.
 
-### Build_with
+### Built_with
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
