@@ -7,13 +7,13 @@ const generateTeam = team => {
         <div class="card text-white bg-dark m-3 employee-card">
         <div class="card-header">
             <h2 class="card-title">${manager.getName()}</h2>
-            <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole()}</h3>
+            <h3 class="card-title h4"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole()}</h3>
         </div>
         <div class="card-body bg-dark">
-            <ul class="list-group">
-                <li class="list-group-item">ID: ${manager.getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
-                <li class="list-group-item">Office number: ${manager.getOfficeNumber()}</li>
+            <ul class="list-group bg-dark">
+                <li class="list-group-item bg-dark">ID: ${manager.getId()}</li>
+                <li class="list-group-item bg-dark">Email: <a href="mailto:${manager.getEmail()}" class="text-white">${manager.getEmail()}</a></li>
+                <li class="list-group-item bg-dark">Office number: ${manager.getOfficeNumber()}</li>
             </ul>
         </div>
     </div>
@@ -23,16 +23,16 @@ const generateTeam = team => {
     // creates the html for engineers
     const generateEngineer = engineer => {
         return `
-        <div class="card text-white bg-light m-3employee-card">
+        <div class="card bg-light m-3 employee-card">
     <div class="card-header">
         <h2 class="card-title">${engineer.getName()}</h2>
-        <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>${engineer.getRole()}</h3>
+        <h3 class="card-title h4"><i class="fas fa-glasses mr-2"></i>${engineer.getRole()}</h3>
     </div>
     <div class="card-body bg-light">
         <ul class="list-group">
-            <li class="list-group-item">ID: ${engineer.getId()}</li>
-            <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-            <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></li>
+            <li class="list-group-item bg-light">ID: ${engineer.getId()}</li>
+            <li class="list-group-item bg-light">Email: <a class="text-dark" href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+            <li class="list-group-item bg-light">GitHub: <a class="text-dark" href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></li>
         </ul>
     </div>
 </div>
@@ -45,13 +45,13 @@ const generateTeam = team => {
         <div class="card text-white bg-info m-3 employee-card">
     <div class="card-header">
         <h2 class="card-title">${intern.getName()}</h2>
-        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
+        <h3 class="card-title h4"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
     </div>
     <div class="card-body bg-info">
         <ul class="list-group">
-            <li class="list-group-item">ID: ${intern.getId()}</li>
-            <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
-            <li class="list-group-item">School: ${intern.getSchool()}</li>
+            <li class="list-group-item bg-info">ID: ${intern.getId()}</li>
+            <li class="list-group-item bg-info">Email: <a href="mailto:${intern.getEmail()}" class="text-white">${intern.getEmail()}</a></li>
+            <li class="list-group-item bg-info">School: ${intern.getSchool()}</li>
         </ul>
     </div>
 </div>
@@ -91,10 +91,10 @@ module.exports = team => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>My Team</title>
-    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://kit.fontawesome.com/c502137733.js"></script>
 </head>
 
@@ -108,7 +108,7 @@ module.exports = team => {
     </div>
     <div class="container">
         <div class="row">
-            <div class="team-area col-12 d-flex justify-content-center">
+            <div class="team-area col-12 d-flex flex-lg-row flex-column justify-content-center">
                 ${generateTeam(team)}
             </div>
         </div>
